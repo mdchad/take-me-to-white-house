@@ -5,4 +5,31 @@ canvas {
   height: 100%;
   margin: auto;
   position: relative;
+  z-index: 1;
 }
+
+#dialog {
+  z-index: 2;
+  background-color: #343256;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  margin: 50% 20%;
+  box-sizing: content-box;
+  color: white;
+  font-style: arial;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 20%;
+  padding-bottom: 10%;
+  margin: 10% 38%;
+}
+
+button {
+  border: none;
+}
+
+/*.no-close .ui-dialog-titlebar-close {
+  display: none;
+}*/
