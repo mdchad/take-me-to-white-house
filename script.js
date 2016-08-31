@@ -141,8 +141,6 @@ function collisionDetection() {
         for(r=0; r<destructibleBrickRowCount; r++) {
             var b = bricks[c][r];
             if(x > b.x && x < b.x+destructibleBrickWidth && y > b.y && y < b.y+destructibleBrickHeight) {
-                spacebar=false;
-                y = canvas.height - 40;
                 b.status = 0;
             }
         }
@@ -180,19 +178,41 @@ function draw() {
         dxBrick = -dxBrick;
     }
 
-    if(x > xBrick && x < xBrick + 80 && y > yBrick && y < yBrick+20) {
+    if( x > xBrick &&  x < xBrick + 80 && y > yBrick && y < yBrick+20) {
       console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER');
+    }
+    else if (x > xBrick-140 && x < xBrick + 80 && y > yBrick && y < yBrick+20) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER');
+    }
+     if (x > xBrick+140 && x < xBrick + 80 && y > yBrick && y < yBrick+20) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER');
+    }
+    // if (x > xBrick*1.5 && x < xBrick + 80 && y > yBrick && y < yBrick-70 ) {
+    //   console.log(x, y, xBrick, yBrick)
+    //   spacebar=false;
+    //   y = canvas.height - 40;
+    //   message('GAME OVER');
+    // }
 
 
 
 
-  } //else if(y + dy < canvas.height-yBrick) {
-  //       alert("GAME OVER");
-  //       document.location.reload();
-  //   }
+
+
+    if (y <= 9) {
+      spacebar=false;
+      y = canvas.height - 40;
+      message('YOU WIN');
+    }
 
 
     if(spacebar) {
@@ -216,6 +236,12 @@ function shoot() {
   y += dy
   // console.log('y, dy: ' + y + ',' + dy + '   x, dx: ' + x + ',' + dx);
 }
+
+// function restart() {
+//   space=false;
+//   y = canvas.height - 40;
+//   message('Press Space to shoot');
+// }
 
 setInterval(draw, 10);
 
