@@ -12,8 +12,10 @@ var yBrick = canvas.height-100;   //obstacle
 var dxBrick = 2;   //obstacle animation
 var dyBrick = 0;  //obstacle animation
 var spacebar = false;
-// var brickDX = 2;
-// var brickDy = 0;
+var brickDX = 2;
+var brickDy = 0;
+var brickX = 0;
+var brickY = 0;
 
 var destructibleBrickRowCount = 2;
 var destructibleBrickColumnCount = 6;
@@ -112,6 +114,157 @@ function drawDestructibleBricks() {
 }
 
 
+
+//Target
+function target() {
+
+  ctx.beginPath();
+  ctx.rect(312, 10, 20, 20);
+  ctx.fillStyle = "#53777A";
+  ctx.fill();
+  ctx.closePath();
+
+}
+
+// Bullet object
+function drawBullet() {
+    ctx.beginPath();
+    ctx.rect(x, y, 5, 15);
+    ctx.fillStyle = "#333";
+    ctx.fill();
+    ctx.closePath();
+}
+//
+
+function collisionDetection() {
+    for(c=0; c<destructibleBrickColumnCount; c++) {
+        for(r=0; r<destructibleBrickRowCount; r++) {
+            var b = bricks[c][r];
+            if(x > b.x && x < b.x+destructibleBrickWidth && y > b.y && y < b.y+destructibleBrickHeight) {
+                spacebar=false;
+                y = canvas.height - 40;
+                b.status = 0;
+            }
+        }
+    }
+}
+
+// function collisionDetectionTwo() {
+//     for(c=0; c<destructibleBrickColumnCount; c++) {
+//         for(r=0; r<destructibleBrickRowCount; r++) {
+//             var b = bricks[c][r];
+//             if(x > brickX && x < brickX && y > brickY && y < brickY) {
+//                 spacebar=false;
+//
+//                 b.status = 0;
+//             }
+//         }
+//     }
+// }
+
+function message(msg) {
+  document.getElementsByTagName('h1')[0].textContent = msg;
+}
+
+
+//for animation
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBullet();
+    drawBrick();
+    target();
+    drawDestructibleBricks();
+    collisionDetection();
+
+    if(xBrick + dxBrick > canvas.width-150 || xBrick + dxBrick < 0) {
+        dxBrick = -dxBrick;
+    }
+
+    if(x > xBrick && x < xBrick + 80 && y > yBrick && y < yBrick+20) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER');
+
+
+
+
+  } //else if(y + dy < canvas.height-yBrick) {
+  //       alert("GAME OVER");
+  //       document.location.reload();
+  //   }
+
+
+    if(spacebar) {
+      shoot()
+    }
+
+    brickX += brickDX;
+    brickY += brickDy;
+
+    xBrick += dxBrick;
+    yBrick += dyBrick;
+}
+
+function shoot() {
+
+  if (y < 0) {
+    spacebar=false;
+    y = canvas.height - 40;
+  }
+  x += dx;
+  y += dy
+  // console.log('y, dy: ' + y + ',' + dy + '   x, dx: ' + x + ',' + dx);
+}
+
+setInterval(draw, 10);
+
+//shooter
+// ctx.beginPath();
+// ctx.rect(310, 290, 20, 20);
+// ctx.fillStyle = "#542437";
+// ctx.fill();
+// ctx.closePath();
+//
+// //target
+// ctx.beginPath();
+// ctx.rect(310, 10, 20, 20);
+// ctx.fillStyle = "#53777A";
+// ctx.fill();
+// ctx.closePath();
+
+
+//Bullet
+// ctx.clearRect(0, 0, canvas.width, canvas.height);
+// ctx.beginPath();
+// ctx.rect(x, y, 5, 15)
+// ctx.fillStyle = "#333";
+// ctx.fill();
+// ctx.closePath();
+// x += dx;
+// y +=dy;
+
+// ctx.beginPath();
+// ctx.rect(40, 80, 80, 20);
+// ctx.fillStyle = "#D95B43";
+// ctx.fill();
+// ctx.closePath();
+//
+// ctx.beginPath();
+// ctx.rect(400, 130, 80, 20);
+// ctx.fillStyle = "#ECD078";
+// ctx.fill();
+// ctx.closePath();
+//
+// ctx.beginPath();
+// ctx.rect(70, 200, 80, 20);
+// ctx.fillStyle = "#C02942";
+// ctx.fill();
+// ctx.closePath();
+
+
+
+
 //destructible obstacle
 // function destructibleObstacle() {
 //
@@ -170,120 +323,3 @@ function drawDestructibleBricks() {
 //   ctx.closePath();
 //
 // }
-
-//Target
-function target() {
-
-  ctx.beginPath();
-  ctx.rect(312, 10, 20, 20);
-  ctx.fillStyle = "#53777A";
-  ctx.fill();
-  ctx.closePath();
-
-}
-
-// Bullet object
-function drawBullet() {
-    ctx.beginPath();
-    ctx.rect(x, y, 5, 15);
-    ctx.fillStyle = "#333";
-    ctx.fill();
-    ctx.closePath();
-}
-//
-
-function collisionDetection() {
-    for(c=0; c<destructibleBrickColumnCount; c++) {
-        for(r=0; r<destructibleBrickRowCount; r++) {
-            var b = bricks[c][r];
-            if(x > b.x && x < b.x+destructibleBrickWidth && y > b.y && y < b.y+destructibleBrickHeight) {
-                spacebar=false;
-                y = canvas.height-40; 
-                b.status = 0;
-            }
-        }
-    }
-}
-
-
-
-
-//for animation
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBullet();
-    drawBrick();
-    target();
-    drawDestructibleBricks();
-    collisionDetection();
-
-    if(xBrick + dxBrick > canvas.width-80 || xBrick + dxBrick < 0) {
-        dxBrick = -dxBrick;
-    }
-
-    if(spacebar) {
-      shoot()
-    }
-
-    // brickX += brickDX;
-    // brickY += brickDy;
-
-    xBrick += dxBrick;
-    yBrick += dyBrick;
-}
-
-function shoot() {
-
-  if (y < 0) {
-    spacebar=false;
-    y = canvas.height - 40;
-  }
-  x += dx;
-  y += dy
-  console.log('y, dy: ' + y + ',' + dy);
-}
-
-setInterval(draw, 10);
-
-//shooter
-// ctx.beginPath();
-// ctx.rect(310, 290, 20, 20);
-// ctx.fillStyle = "#542437";
-// ctx.fill();
-// ctx.closePath();
-//
-// //target
-// ctx.beginPath();
-// ctx.rect(310, 10, 20, 20);
-// ctx.fillStyle = "#53777A";
-// ctx.fill();
-// ctx.closePath();
-
-
-//Bullet
-// ctx.clearRect(0, 0, canvas.width, canvas.height);
-// ctx.beginPath();
-// ctx.rect(x, y, 5, 15)
-// ctx.fillStyle = "#333";
-// ctx.fill();
-// ctx.closePath();
-// x += dx;
-// y +=dy;
-
-// ctx.beginPath();
-// ctx.rect(40, 80, 80, 20);
-// ctx.fillStyle = "#D95B43";
-// ctx.fill();
-// ctx.closePath();
-//
-// ctx.beginPath();
-// ctx.rect(400, 130, 80, 20);
-// ctx.fillStyle = "#ECD078";
-// ctx.fill();
-// ctx.closePath();
-//
-// ctx.beginPath();
-// ctx.rect(70, 200, 80, 20);
-// ctx.fillStyle = "#C02942";
-// ctx.fill();
-// ctx.closePath();
