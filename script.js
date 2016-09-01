@@ -12,18 +12,18 @@ var chooseColor="";
 
 document.getElementById('dialog').style.display='none';
 
-  if (document.getElementById('grey').checked) {
-    chooseColor= "#333";
-  } else if (document.getElementById('maroon').checked) {
-    chooseColor="#700C25"
-  }
+  // if (document.getElementById('grey').checked) {
+  //   chooseColor= "#333";
+  // } else if (document.getElementById('maroon').checked) {
+  //   chooseColor="#700C25"
+  // }
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-40;
 var dx = 0;
-var dy = -5;
+var dy = -4;
 var xBrick = 0;    //obstacle
 var yBrick = canvas.height-100;   //obstacle
 var dxBrick = 2;   //obstacle animation
@@ -34,6 +34,10 @@ var brickDy = 0;
 var brickX = 0;
 var brickY = 0;
 var time;
+var startAngle = (2*Math.PI);
+var endAngle = (Math.PI*1.5);
+var currentAngle = 0;
+
 
 
 var destructibleBrickRowCount = 2;
@@ -79,6 +83,8 @@ function keyDownHandler(e) {
         spacebar = true;
     }
 }
+
+
 
 
 //all the obstacle
@@ -138,7 +144,7 @@ function drawDestructibleBricks() {
             var brickX = (c*(destructibleBrickWidth+destructibleBrickPadding))+destructibleBrickOffsetLeft;
             var brickY = (r*(destructibleBrickHeight+destructibleBrickPadding))+destructibleBrickOffsetTop;
             var variable = new Date()
-            brickX -= variable.getSeconds();
+            brickX -= variable.getMilliseconds();
             bricks[c][r].x = brickX;
             bricks[c][r].y = brickY;
             ctx.beginPath();
@@ -168,21 +174,49 @@ function collisionDetection() {
 function target() {
 
   ctx.beginPath();
-  ctx.rect(312, 10, 20, 20);
+  ctx.rect(312, 18, 20, 20);
   ctx.fillStyle = "#53777A";
   ctx.fill();
   ctx.closePath();
 
 }
 
+
 // Bullet object
+var image = new Image()
+image.src='Single-Bullet-icon.png'
 function drawBullet() {
     ctx.beginPath();
-    ctx.rect(x, y, 5, 15);
-    ctx.fillStyle = chooseColor;
-    ctx.fill();
+    // ctx.rect(x, y, 5, 15);
+    // ctx.fillStyle = chooseColor;
+    // ctx.fill();
+    ctx.drawImage(image, x, y, 5, 15);
     ctx.closePath();
 }
+
+// function rotate() {
+//
+//         //Clears
+//         // ctx.clearRect(0,0,canvas.width,canvas.height);
+//
+//         //Drawing
+//         ctx.beginPath();
+//         ctx.arc(320, 30, 20, startAngle + currentAngle, endAngle + currentAngle, false);
+//         ctx.strokeStyle = "#102143";
+//         ctx.lineWidth = 6.0;
+//         ctx.stroke();
+//
+//         // translate context to center of canvas
+//         // context.translate(canvas.width / 2, canvas.height / 2);
+//         //
+//         // // rotate 45 degrees clockwise
+//         // context.rotate(Math.PI / 4);
+//         //
+//         // currentAngle += diff * 0.001;
+//         //
+//         // currentAngle %= 2 * Math.PI;
+//
+// }
 
 
 //for animation
@@ -193,6 +227,7 @@ function draw() {
     target();
     drawDestructibleBricks();
     collisionDetection();
+    // rotate();
 
 
     if(xBrick + dxBrick > canvas.width-180 || xBrick + dxBrick < 0) {
@@ -228,24 +263,24 @@ function draw() {
       console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
-      message('GAME OVER');
+      message('GAME OVER', 'Restart');
       // clearInterval(timer);
     }
-    // else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160 && y > dyBrick + 100 && y < dyBrick+20 ) {
-    //   spacebar=false;
-    //   y = canvas.height - 40;
-    //   message('GAME OVER');
-    // }
-    // else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160) {
-    //   spacebar=false;
-    //   y = canvas.height - 40;
-    //   message('GAME OVER');
-    // }
-    // else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160) {
-    //   spacebar=false;
-    //   y = canvas.height - 40;
-    //   message('GAME OVER');
-    // }
+    else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160 && y > dyBrick + 130 && y < dyBrick+20 ) {
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+    }
+    else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160 && y > dyBrick + 130 && y < dyBrick+20) {
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+    }
+    else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160 && y > dyBrick + 130 && y < dyBrick+20) {
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+    }
 
 
 
@@ -253,7 +288,7 @@ function draw() {
 
 
 
-    if (y <= 14) {
+    if (y <= 25) {
       spacebar=false;
       y = canvas.height - 40;
       message('YOU WIN', 'Play Again') ;
@@ -285,6 +320,7 @@ function shoot() {
 var time = setInterval(draw, 10);
 
 }
+
 
 
 
