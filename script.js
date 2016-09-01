@@ -1,6 +1,23 @@
 
 console.log("hello world");
 
+
+document.getElementsByTagName('button')[0].addEventListener('click', startGame)
+
+
+
+function startGame() {
+
+var chooseColor="";
+
+document.getElementById('dialog').style.display='none';
+
+  if (document.getElementById('grey').checked) {
+    chooseColor= "#333";
+  } else if (document.getElementById('maroon').checked) {
+    chooseColor="#700C25"
+  }
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
@@ -18,7 +35,8 @@ var brickX = 0;
 var brickY = 0;
 var time;
 
-var destructibleBrickRowCount = 5;
+
+var destructibleBrickRowCount = 2;
 var destructibleBrickColumnCount = 15;
 var destructibleBrickWidth = 80;
 var destructibleBrickHeight = 5;
@@ -35,26 +53,21 @@ for(c=0; c<destructibleBrickColumnCount; c++) {
       }
 }
 
-document.getElementsByTagName('button')[0].addEventListener('click', startGame)
-
-function startGame() {
-  document.getElementById('dialog').style.display='none';
-}
-
-function stopGame(){
-
-}
 
 
 
-
-function message(msg) {
+function message(msg, buttonText) {
   document.getElementsByTagName('h1')[0].textContent = msg;
   document.getElementById('dialog').style.display = 'block';
   document.getElementsByTagName('p')[0].textContent = 'Your time: ';
-  document.getElementsByTagName('button')[0].textContent = 'Restart';
-  // clearInterval(time);
+  document.getElementsByTagName('button')[0].textContent = buttonText;
+  document.getElementsByTagName('p')[1].textContent = " ";
+  // document.getElementsByTagName('label')[0].textContent = " ";
+  // document.getElementsByTagName('label')[1].textContent = " ";
+  clearInterval(time);
 }
+
+
 
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -125,7 +138,7 @@ function drawDestructibleBricks() {
             var brickX = (c*(destructibleBrickWidth+destructibleBrickPadding))+destructibleBrickOffsetLeft;
             var brickY = (r*(destructibleBrickHeight+destructibleBrickPadding))+destructibleBrickOffsetTop;
             var variable = new Date()
-            brickX -= variable.getMilliseconds();
+            brickX -= variable.getSeconds();
             bricks[c][r].x = brickX;
             bricks[c][r].y = brickY;
             ctx.beginPath();
@@ -166,7 +179,7 @@ function target() {
 function drawBullet() {
     ctx.beginPath();
     ctx.rect(x, y, 5, 15);
-    ctx.fillStyle = "#333";
+    ctx.fillStyle = chooseColor;
     ctx.fill();
     ctx.closePath();
 }
@@ -181,6 +194,7 @@ function draw() {
     drawDestructibleBricks();
     collisionDetection();
 
+
     if(xBrick + dxBrick > canvas.width-180 || xBrick + dxBrick < 0) {
         dxBrick = -dxBrick;
     }
@@ -189,28 +203,33 @@ function draw() {
 
 
     if( (x > xBrick) &&  (x < xBrick + 80) && (y > yBrick) && (y < yBrick+20)) {
-      console.log(x, y, xBrick, yBrick)
+      // console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
-      message('GAME OVER');
+      message('GAME OVER', 'Restart');
     }
-    else if ( (x > xBrick-140) && x < xBrick - 80 && y > yBrick && y < yBrick+20) {
-      console.log(x, y, xBrick, yBrick)
+    else if ( (x > xBrick-140) && x < xBrick - 80 && y > yBrick && (y < yBrick+20)) {
+      // console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
-      message('GAME OVER');
+      message('GAME OVER', 'Restart');
+      // clearInterval(timer);
+
     }
-     else if (x > xBrick+140 && x < xBrick + 220 && y > yBrick && y < yBrick+20) {
-      console.log(x, y, xBrick, yBrick)
+     else if (x > xBrick+140 && x < xBrick + 220 && y > yBrick && (y < yBrick+20)) {
+      // console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
-      message('GAME OVER');
+      message('GAME OVER', 'Restart');
+      // clearInterval(timer);
+
     }
     else if (x > xBrick*1.5 && x < xBrick + 120 && y > yBrick && y < yBrick-50 ) {
       console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER');
+      // clearInterval(timer);
     }
     // else if ( (x > canvas.width-xBrick+80) && x < xBrick + 160 && y > dyBrick + 100 && y < dyBrick+20 ) {
     //   spacebar=false;
@@ -237,7 +256,7 @@ function draw() {
     if (y <= 14) {
       spacebar=false;
       y = canvas.height - 40;
-      message('YOU WIN');
+      message('YOU WIN', 'Play Again') ;
     }
 
 
@@ -259,11 +278,16 @@ function shoot() {
     y = canvas.height - 40;
   }
   x += dx;
-  y += dy
+  y += dy;
   // console.log('y, dy: ' + y + ',' + dy + '   x, dx: ' + x + ',' + dx);
 }
 
 var time = setInterval(draw, 10);
+
+}
+
+
+
 
 //shooter
 // ctx.beginPath();

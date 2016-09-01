@@ -1,3 +1,12 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+#innerbox {
+  background: #102143;
+  padding-bottom: 2%;
+}
+
 canvas {
   background: #eee;
   display: block;
@@ -12,22 +21,42 @@ canvas {
   z-index: 2;
   background-color: #343256;
   border: none;
-  padding: 10px;
+  padding: 2%;
   text-align: center;
-  margin: 50% 20%;
   box-sizing: content-box;
   color: white;
   font-style: arial;
-  left: 0;
   position: absolute;
+  left: 0;
   top: 0;
   width: 20%;
-  padding-bottom: 10%;
+  padding-bottom: 2%;
   margin: 10% 38%;
 }
 
+#radioBox {
+  margin-top: 10%;
+
+}
+
 button {
-  border: none;
+  border: 3px solid #102143;
+  display: block;
+  margin: 15% auto;
+  background: white;
+  padding: 2% 8%;
+  font-size: 20pt;
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}
+
+label {
+  margin-top: 4%;
+  cursor: pointer;
+  margin-top: 2%;
 }
 
 /*.no-close .ui-dialog-titlebar-close {

@@ -4,11 +4,25 @@
     <meta charset="utf-8">
     <title>Breakout.20</title>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
   </head>
   <body>
     <div id="dialog" title="Basic dialog">
+      <div id="innerbox">
         <h1>Instructions</h1>
         <p>Press SPACEBAR to shoot</p>
+        <p>Avoid the colored bricks</p>
+      </div>
+      <div id="radioBox">
+        <label>
+          <input type="radio" id="grey" name="color"/>
+          Grey
+        </label>
+        <label>
+          <input type="radio" id="maroon" name="color"/>
+          Maroon
+        </label>
+      </div>
         <button>Start</button>
     </div>
     <canvas id="myCanvas" width="640" height="320"></canvas>
