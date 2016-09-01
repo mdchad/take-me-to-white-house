@@ -19,7 +19,7 @@ canvas {
 }
 
 #dialog {
-  z-index: 2;
+  z-index: 3;
   background-color: #343256;
   border: none;
   padding: 2%;
@@ -31,21 +31,44 @@ canvas {
   left: 0;
   top: 0;
   width: 40%;
-  padding-bottom: 2%;
-  margin: 5% 30%;
+  padding-bottom: 1%;
+  margin: 2% 30%;
 }
 
 #radioBox {
   margin-top: 10%;
-
 }
+
+#github {
+  z-index: 2;
+  position: absolute;
+  box-sizing: content-box;
+  margin: 48%;
+  margin-left: 92%;
+  margin-bottom: 0;
+  left:0;
+  top:0;
+  width: 7%;
+  border: 1px dotted #333;
+}
+
+
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
 
 button {
   border: 3px solid #102143;
   display: block;
   margin: 10% auto;
   background: white;
-  padding: 2% 8%;
+  padding: 1% 8%;
   font-size: 20pt;
   cursor: pointer;
 }
