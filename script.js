@@ -13,11 +13,14 @@ var chooseColor="";
 document.getElementById('dialog').style.display='none';
 
 var imageObj = new Image()
+var name = "";
 
   if (document.getElementById('hillary').checked) {
     imageObj.src='hillary.png';
+    name = 'Hillary';
   } else if (document.getElementById('trump').checked) {
     imageObj.src='trump.png';
+    name = 'Trump';
   }
 
 var canvas = document.getElementById("myCanvas");
@@ -29,7 +32,11 @@ var dy = -3;
 var xBrick = 0;    //obstacle
 var yBrick = canvas.height-100;   //obstacle
 var dxBrick = 2;   //obstacle animation
-var dyBrick = 0;  //obstacle animation
+var dyBrick = 0;
+var xTwoBrick = 0;
+var dxTwoBrick = 3;  //obstacle animation
+var xThreeBrick = 0;
+var dxThreeBrick = 2;
 var spacebar = false;
 var brickDX = 2;
 var brickDy = 0;
@@ -62,12 +69,13 @@ for(c=0; c<destructibleBrickColumnCount; c++) {
 
 
 
-function message(msg, buttonText) {
+function message(msg, buttonText, speech) {
   document.getElementsByTagName('h1')[0].textContent = msg;
   document.getElementById('dialog').style.display = 'block';
-  document.getElementsByTagName('p')[0].textContent = 'Your time: ';
+  document.getElementsByTagName('p')[1].textContent = '';
+  document.getElementsByTagName('p')[2].textContent = '';
   document.getElementsByTagName('button')[0].textContent = buttonText;
-  document.getElementsByTagName('p')[1].textContent = " ";
+  document.getElementsByTagName('p')[0].textContent = speech;
   // document.getElementsByTagName('label')[0].textContent = " ";
   // document.getElementsByTagName('label')[1].textContent = " ";
   clearInterval(time);
@@ -94,34 +102,45 @@ function drawBrick() {
 
   ctx.beginPath();
   ctx.rect(xBrick, yBrick, 80, 20);
-  ctx.fillStyle = "#D95B43";
+  ctx.fillStyle = "#53777A";
   ctx.fill();
   ctx.closePath();
 
   ctx.beginPath();
   ctx.rect(xBrick-110, yBrick, 80, 20);
-  ctx.fillStyle = "#D95B43";
+  ctx.fillStyle = "#53777A";
   ctx.fill();
   ctx.closePath();
 
   ctx.beginPath();
   ctx.rect(xBrick+110, yBrick, 80, 20);
-  ctx.fillStyle = "#D95B43";
+  ctx.fillStyle = "#53777A";
   ctx.fill();
   ctx.closePath();
-
-  // ctx.beginPath();
-  // ctx.rect(xBrick*1.5, yBrick-50, 80, 20);
-  // ctx.fillStyle = "#C02942";
-  // ctx.fill();
-  // ctx.closePath();
 
   ctx.beginPath();
-  ctx.rect(canvas.width-xBrick-180, dyBrick+130, 80, 20);
-  ctx.fillStyle = "#ECD078";
+  ctx.rect(xTwoBrick, yBrick-50, 80, 20);
+  ctx.fillStyle = "#C02942";
   ctx.fill();
   ctx.closePath();
 
+  ctx.beginPath();
+  ctx.rect(xTwoBrick + 140, yBrick-50, 80, 20);
+  ctx.fillStyle = "#C02942";
+  ctx.fill();
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.rect(xTwoBrick - 140, yBrick-50, 80, 20);
+  ctx.fillStyle = "#C02942";
+  ctx.fill();
+  ctx.closePath();
+  // // ctx.beginPath();
+  // // ctx.rect(canvas.width-xBrick-180, dyBrick+130, 80, 20);
+  // // ctx.fillStyle = "#ECD078";
+  // // ctx.fill();
+  // // ctx.closePath();
+  //
   ctx.beginPath();
   ctx.rect(canvas.width-xBrick, dyBrick+130, 80, 20);
   ctx.fillStyle = "#ECD078";
@@ -134,6 +153,17 @@ function drawBrick() {
   ctx.fill();
   ctx.closePath();
 
+  // ctx.beginPath();
+  // ctx.rect(xTwoBrick + 60, dyBrick+80, 80, 20);
+  // ctx.fillStyle = "#53777A";
+  // ctx.fill();
+  // ctx.closePath();
+  //
+  // ctx.beginPath();
+  // ctx.rect(xTwoBrick + 200, dyBrick+80, 80, 20);
+  // ctx.fillStyle = "#53777A";
+  // ctx.fill();
+  // ctx.closePath();
 
 }
 
@@ -186,9 +216,7 @@ function target() {
 } img.src='white-house.png'
 
 
-// Bullet object
-// var image = new Image()
-// image.src='hillary.png'
+
 function drawBullet() {
     ctx.beginPath();
     // ctx.rect(x, y, 5, 15);
@@ -198,29 +226,6 @@ function drawBullet() {
     ctx.closePath();
 }
 
-// function rotate() {
-//
-//         //Clears
-//         // ctx.clearRect(0,0,canvas.width,canvas.height);
-//
-//         //Drawing
-//         ctx.beginPath();
-//         ctx.arc(320, 30, 20, startAngle + currentAngle, endAngle + currentAngle, false);
-//         ctx.strokeStyle = "#102143";
-//         ctx.lineWidth = 6.0;
-//         ctx.stroke();
-//
-//         // translate context to center of canvas
-//         // context.translate(canvas.width / 2, canvas.height / 2);
-//         //
-//         // // rotate 45 degrees clockwise
-//         // context.rotate(Math.PI / 4);
-//         //
-//         // currentAngle += diff * 0.001;
-//         //
-//         // currentAngle %= 2 * Math.PI;
-//
-// }
 
 
 //for animation
@@ -235,8 +240,15 @@ function draw() {
 
 
     if(xBrick + dxBrick > canvas.width-180 || xBrick + dxBrick < 0) {
-        dxBrick = -dxBrick;
+        dxBrick =- dxBrick;
     }
+    if(xTwoBrick + dxTwoBrick > canvas.width-80 || xTwoBrick + dxTwoBrick < 0) {
+      dxTwoBrick =- dxTwoBrick;
+    }
+    if(xThreeBrick + dxThreeBrick > canvas.width || xThreeBrick + dxThreeBrick < 0) {
+      dxThreeBrick =- dxThreeBrick;
+    }
+
 
 
 
@@ -247,7 +259,7 @@ function draw() {
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
     }
-    else if ( (x > xBrick-110) && x < xBrick - 80 && y > yBrick && (y < yBrick+20)) {
+    else if ( (x > xBrick-110) && x < xBrick - 30 && y > yBrick && (y < yBrick+20)) {
       // console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
@@ -255,7 +267,7 @@ function draw() {
       // clearInterval(timer);
 
     }
-     else if (x > xBrick+110 && x < xBrick + 190 && y > yBrick && (y < yBrick+20)) {
+    else if (x > xBrick+110 && x < xBrick + 190 && y > yBrick && (y < yBrick+20)) {
       // console.log(x, y, xBrick, yBrick)
       spacebar=false;
       y = canvas.height - 40;
@@ -263,13 +275,27 @@ function draw() {
       // clearInterval(timer);
 
     }
-    // else if (x > xBrick && x < xBrick + 80 && y > yBrick-50 && y < yBrick-70 ) {
-    //   console.log(x, y, xBrick, yBrick)
-    //   spacebar=false;
-    //   y = canvas.height - 40;
-    //   message('GAME OVER', 'Restart');
-    //   // clearInterval(timer);
-    // }
+    else if (x > xTwoBrick && x < xTwoBrick + 80 && y > yBrick-70 && y < yBrick-50 ) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+      // clearInterval(timer);
+    }
+    else if (x > xTwoBrick + 140 && x < xTwoBrick + 220 && y > yBrick-70 && y < yBrick-50 ) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+      // clearInterval(timer);
+    }
+    else if (x > xTwoBrick - 140 && x < xTwoBrick - 60 && y > yBrick-70 && y < yBrick-50 ) {
+      console.log(x, y, xBrick, yBrick)
+      spacebar=false;
+      y = canvas.height - 40;
+      message('GAME OVER', 'Restart');
+      // clearInterval(timer);
+    }
     else if ( (x > canvas.width-xBrick+100) && x < xBrick + 180 && y > dyBrick + 130 && y < dyBrick+150 ) {
       spacebar=false;
       console.log(x,y);
@@ -282,13 +308,24 @@ function draw() {
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
     }
-    else if ( (x > canvas.width-xBrick-180) && x < xBrick  - 80 && y > dyBrick + 130 && y < dyBrick+150) {
-      spacebar=false;
-      console.log(x,y);
-      y = canvas.height - 40;
-      message('GAME OVER', 'Restart');
-    }
-
+    // else if ( (x > canvas.width-xBrick-180) && x < xBrick  - 80 && y > dyBrick + 130 && y < dyBrick+150) {
+    //   spacebar=false;
+    //   console.log(x,y);
+    //   y = canvas.height - 40;
+    //   message('GAME OVER', 'Restart');
+    // }
+    // else if ( (x > xTwoBrick + 60) && x < dxTwoBrick  + 140 && y > dyBrick + 80 && y < dyBrick + 100) {
+    //   spacebar=false;
+    //   console.log(x,y);
+    //   y = canvas.height - 40;
+    //   message('GAME OVER', 'Restart');
+    // }
+    // else if ( (x > xTwoBrick + 200) && x < dxTwoBrick  + 280 && y > dyBrick + 80 && y < dyBrick + 100) {
+    //   spacebar=false;
+    //   console.log(x,y);
+    //   y = canvas.height - 40;
+    //   message('GAME OVER', 'Restart');
+    // }
 
 
 
@@ -298,7 +335,7 @@ function draw() {
     if (y <= 25) {
       spacebar=false;
       y = canvas.height - 40;
-      message('YOU WIN', 'Play Again') ;
+      message('YOU WIN', 'Play Again',  "Congratulations, " + name + " is the new President Of United States Of America") ;
     }
 
 
@@ -306,12 +343,17 @@ function draw() {
       shoot()
     }
 
+
     brickX += brickDX;
     brickY += brickDy;
 
+    xTwoBrick += dxTwoBrick;
+
+    xThreeBrick += dxThreeBrick;
+
     xBrick += dxBrick;
     yBrick += dyBrick;
-}
+    }
 
 function shoot() {
 
@@ -326,65 +368,9 @@ function shoot() {
 
 var time = setInterval(draw, 10);
 
+
 }
 
-
-      window.requestAnimFrame = (function(callback) {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-        function(callback) {
-          window.setTimeout(callback, 1000 / 60);
-        };
-      })();
-
-      function drawRectangle(myRectangle, context) {
-        context.beginPath();
-        context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
-        context.fillStyle = '#8ED6FF';
-        context.fill();
-        context.lineWidth = myRectangle.borderWidth;
-        context.strokeStyle = 'black';
-        context.stroke();
-      }
-      function animate(myRectangle, canvas, context, startTime) {
-        // update
-        var time = (new Date()).getTime() - startTime;
-        var amplitude = 150;
-
-        // in ms
-        var period = 2000;
-        var centerX = canvas.width / 2 - myRectangle.width / 2;
-        var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
-        myRectangle.x = nextX;
-
-        // clear
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        // draw
-        drawRectangle(myRectangle, context);
-
-        // request new frame
-        requestAnimFrame(function() {
-          animate(myRectangle, canvas, context, startTime);
-        });
-      }
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
-
-      var myRectangle = {
-        x: 250,
-        y: 70,
-        width: 100,
-        height: 50,
-        borderWidth: 5
-      };
-
-      drawRectangle(myRectangle, context);
-
-      // wait one second before starting animation
-      setTimeout(function() {
-        var startTime = (new Date()).getTime();
-        animate(myRectangle, canvas, context, startTime);
-      }, 1000);
 
 
 
