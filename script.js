@@ -1,6 +1,4 @@
 
-console.log("hello world");
-
 
 document.getElementsByTagName('button')[0].addEventListener('click', startGame)
 
@@ -46,7 +44,8 @@ var time;
 var startAngle = (2*Math.PI);
 var endAngle = (Math.PI*1.5);
 var currentAngle = 0;
-
+var scream = new Audio('scream.mp3');
+var audio = new Audio('winning.mp3')
 
 
 var destructibleBrickRowCount = 2;
@@ -264,6 +263,7 @@ function draw() {
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
       // clearInterval(timer);
 
     }
@@ -272,6 +272,7 @@ function draw() {
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
       // clearInterval(timer);
 
     }
@@ -280,6 +281,7 @@ function draw() {
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
       // clearInterval(timer);
     }
     else if (x > xTwoBrick + 140 && x < xTwoBrick + 220 && y > yBrick-70 && y < yBrick-50 ) {
@@ -287,6 +289,7 @@ function draw() {
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
       // clearInterval(timer);
     }
     else if (x > xTwoBrick - 140 && x < xTwoBrick - 60 && y > yBrick-70 && y < yBrick-50 ) {
@@ -294,6 +297,7 @@ function draw() {
       spacebar=false;
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
       // clearInterval(timer);
     }
     else if ( (x > canvas.width-xBrick+100) && x < xBrick + 180 && y > dyBrick + 130 && y < dyBrick+150 ) {
@@ -301,12 +305,16 @@ function draw() {
       console.log(x,y);
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
+
     }
     else if ( (x > canvas.width-xBrick) && x < xBrick + 80 && y > dyBrick + 130 && y < dyBrick+150) {
       spacebar=false;
       console.log(x, y);
       y = canvas.height - 40;
       message('GAME OVER', 'Restart');
+      scream.play();
+
     }
     // else if ( (x > canvas.width-xBrick-180) && x < xBrick  - 80 && y > dyBrick + 130 && y < dyBrick+150) {
     //   spacebar=false;
@@ -335,7 +343,8 @@ function draw() {
     if (y <= 25) {
       spacebar=false;
       y = canvas.height - 40;
-      message('YOU WIN', 'Play Again',  "Congratulations, " + name + " is the new President Of United States Of America") ;
+      message('YOU WIN', 'Play Again',  "Congratulations, " + name + " is the new President Of United States Of America");
+      winning.play();
     }
 
 
