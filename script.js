@@ -343,7 +343,7 @@ function draw() {
     if (y <= 25) {
       spacebar=false;
       y = canvas.height - 40;
-      message('YOU WIN', 'Play Again',  "Congratulations, " + name + " is the new President Of United States Of America");
+      message('YOU WIN', 'Play Again',  "Congratulations, " + name + " is the new President Of The United States Of America");
       winning.play();
     }
 
