@@ -75,8 +75,6 @@ function message(msg, buttonText, speech) {
   document.getElementsByTagName('p')[2].textContent = '';
   document.getElementsByTagName('button')[0].textContent = buttonText;
   document.getElementsByTagName('p')[0].textContent = speech;
-  // document.getElementsByTagName('label')[0].textContent = " ";
-  // document.getElementsByTagName('label')[1].textContent = " ";
   clearInterval(time);
 }
 
@@ -134,12 +132,7 @@ function drawBrick() {
   ctx.fillStyle = "#C02942";
   ctx.fill();
   ctx.closePath();
-  // // ctx.beginPath();
-  // // ctx.rect(canvas.width-xBrick-180, dyBrick+130, 80, 20);
-  // // ctx.fillStyle = "#ECD078";
-  // // ctx.fill();
-  // // ctx.closePath();
-  //
+
   ctx.beginPath();
   ctx.rect(canvas.width-xBrick, dyBrick+130, 80, 20);
   ctx.fillStyle = "#ECD078";
@@ -152,17 +145,6 @@ function drawBrick() {
   ctx.fill();
   ctx.closePath();
 
-  // ctx.beginPath();
-  // ctx.rect(xTwoBrick + 60, dyBrick+80, 80, 20);
-  // ctx.fillStyle = "#53777A";
-  // ctx.fill();
-  // ctx.closePath();
-  //
-  // ctx.beginPath();
-  // ctx.rect(xTwoBrick + 200, dyBrick+80, 80, 20);
-  // ctx.fillStyle = "#53777A";
-  // ctx.fill();
-  // ctx.closePath();
 
 }
 
@@ -316,25 +298,6 @@ function draw() {
       scream.play();
 
     }
-    // else if ( (x > canvas.width-xBrick-180) && x < xBrick  - 80 && y > dyBrick + 130 && y < dyBrick+150) {
-    //   spacebar=false;
-    //   console.log(x,y);
-    //   y = canvas.height - 40;
-    //   message('GAME OVER', 'Restart');
-    // }
-    // else if ( (x > xTwoBrick + 60) && x < dxTwoBrick  + 140 && y > dyBrick + 80 && y < dyBrick + 100) {
-    //   spacebar=false;
-    //   console.log(x,y);
-    //   y = canvas.height - 40;
-    //   message('GAME OVER', 'Restart');
-    // }
-    // else if ( (x > xTwoBrick + 200) && x < dxTwoBrick  + 280 && y > dyBrick + 80 && y < dyBrick + 100) {
-    //   spacebar=false;
-    //   console.log(x,y);
-    //   y = canvas.height - 40;
-    //   message('GAME OVER', 'Restart');
-    // }
-
 
 
 
@@ -379,113 +342,3 @@ var time = setInterval(draw, 10);
 
 
 }
-
-
-
-
-
-
-//shooter
-// ctx.beginPath();
-// ctx.rect(310, 290, 20, 20);
-// ctx.fillStyle = "#542437";
-// ctx.fill();
-// ctx.closePath();
-//
-// //target
-// ctx.beginPath();
-// ctx.rect(310, 10, 20, 20);
-// ctx.fillStyle = "#53777A";
-// ctx.fill();
-// ctx.closePath();
-
-
-//Bullet
-// ctx.clearRect(0, 0, canvas.width, canvas.height);
-// ctx.beginPath();
-// ctx.rect(x, y, 5, 15)
-// ctx.fillStyle = "#333";
-// ctx.fill();
-// ctx.closePath();
-// x += dx;
-// y +=dy;
-
-// ctx.beginPath();
-// ctx.rect(40, 80, 80, 20);
-// ctx.fillStyle = "#D95B43";
-// ctx.fill();
-// ctx.closePath();
-//
-// ctx.beginPath();
-// ctx.rect(400, 130, 80, 20);
-// ctx.fillStyle = "#ECD078";
-// ctx.fill();
-// ctx.closePath();
-//
-// ctx.beginPath();
-// ctx.rect(70, 200, 80, 20);
-// ctx.fillStyle = "#C02942";
-// ctx.fill();
-// ctx.closePath();
-
-
-
-
-//destructible obstacle
-// function destructibleObstacle() {
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle-20)*2, yObstacle-30, 100, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle-70)*2, yObstacle-30, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle+40)*2, yObstacle-30, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle-120)*2, yObstacle-30, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle-170)*2, yObstacle-30, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((xObstacle-220)*2, yObstacle-30, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((canvas.width-xObstacle-80)*1.5, dyObstacle+70, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((canvas.width-xObstacle-20)*1.5, dyObstacle+70, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-//   ctx.beginPath();
-//   ctx.rect((canvas.width-xObstacle+40)*1.5, dyObstacle+70, 80, 5);
-//   ctx.fillStyle = "#542437";
-//   ctx.fill();
-//   ctx.closePath();
-//
-// }
